@@ -2,6 +2,10 @@ package POS;
 
 public class Product extends Item {
 
+    public void Product (String description, String code) {
+        super.Item(description, code);
+    }
+
     public void assignSKU (int sku) {
         try {
             if (this.sku == sku)

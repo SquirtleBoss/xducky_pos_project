@@ -2,10 +2,15 @@ package POS;
 
 abstract class Item {
     String description;
-    double ID;
+    String ID;
     public double quantity = 0;
     double price;
     int sku;
+
+    public void Item (String description2, String id) {
+        description = description2;
+        ID = id;
+    }
 
 
     public void addQuantity (double x) {

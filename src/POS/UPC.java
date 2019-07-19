@@ -23,6 +23,7 @@ public class UPC {
             }
             String nameData [] = data[9].split(":");
             System.out.println(nameData[1]);
+            return nameData[1];
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
