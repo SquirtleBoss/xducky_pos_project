@@ -1,4 +1,4 @@
-package ui;
+package system;
 public class Permissions {
 
     // password set, user add/delete, override key, use program

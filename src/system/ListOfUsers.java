@@ -1,4 +1,4 @@
-package ui;
+package system;
 
 import java.io.IOException;
 import java.io.PrintWriter;

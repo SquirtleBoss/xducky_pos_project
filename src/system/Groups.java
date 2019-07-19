@@ -1,4 +1,4 @@
-package ui;
+package system;
 
 public class Groups {
 
