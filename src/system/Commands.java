@@ -10,7 +10,7 @@ public class Commands {
     {
         ListOfUsers users = new ListOfUsers();
         Commands c = new Commands();
-        Login Admin1 = new Login("Admin1", "", 5);
+        Login Admin1 = new Login("Admin1", "", 5, null);
         users.logins.add(Admin1);
         c.runFn(users, Admin1);
     }
@@ -22,7 +22,7 @@ public class Commands {
 
             System.out.print (currentUser.ID + " >  ");
             Scanner in = new Scanner(System.in);
-            Login logout = new Login("logged out", "",1);
+            Login logout = new Login("logged out", "",1, currentUser);
             Commands c = new Commands();
 
             String command = in.nextLine();

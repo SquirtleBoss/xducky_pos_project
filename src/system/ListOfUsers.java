@@ -21,7 +21,7 @@ public class ListOfUsers implements writeIn, Save{
         List<String> lines = Files.readAllLines(Paths.get("inputfile.txt"));
         for (int i = 0; i < lines.size(); i++) {
             String[] info = lines.get(i).split(" ");
-            Login a = new Login (info[0], info[1], Integer.parseInt(info[2]));
+            Login a = new Login (info[0], info[1], Integer.parseInt(info[2]), logins.get(Integer.parseInt(info[3])));
             logins.add(a);
         }
         System.out.println (logins);
@@ -33,17 +33,17 @@ public class ListOfUsers implements writeIn, Save{
         PrintWriter writer = new PrintWriter("inputfile.txt","UTF-8");
         for (int i = 0; i < logins.size(); i++) {
             Login a = logins.get(i);
-            String toSave = a.ID + " " + a.code.getPass() + " " + a.membership.name;
+            String toSave = a.ID + " " + a.code.getPass() + " " + a.membership.name + Integer.toString(logins.indexOf(a.addedBy));
             writer.println(toSave);
         }
         writer.close();
     }
 
-    public void addUserDef (String id, String pass)
-    {
-        Login x = new Login (id, pass,2);
-        logins.add(x);
-    }
+//    public void addUserDef (String id, String pass)
+//    {
+//        Login x = new Login (id, pass,2);
+//        logins.add(x);
+//    }
 
     // addUser() adds a new user to list of users
     public void addUser (String id, Login currentUser)
@@ -51,12 +51,12 @@ public class ListOfUsers implements writeIn, Save{
         System.out.println ("Enter Password: ");
         Scanner in = new Scanner(System.in);
         String pass = in.nextLine();
-        Login x = new Login (id, pass,2);
+        Login x = new Login (id, pass,2, currentUser);
         logins.add(x);
         System.out.println (id + " successfully added");
         System.out.println (logins);
         Commands c = new Commands();
-        Login logout = new Login("logout", "", 0); // Change user here
+        Login logout = new Login("logout", "", 0, currentUser); // Change user here
         c.runFn(this, currentUser);
     }
 
@@ -86,7 +86,7 @@ public class ListOfUsers implements writeIn, Save{
             System.out.println (logins.get(i).ID);
         }
         Commands c = new Commands();
-        Login logout = new Login("logout", "", 0); //Change user here
+        Login logout = new Login("logout", "", 0, null); //Change user here
         c.runFn (this, logout);
     }
 

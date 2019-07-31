@@ -4,6 +4,10 @@ public class Produce extends Item {
 
     private boolean byWeight = false;
 
+    public void Produce (String code) {
+        super.Item(code);
+    }
+
     @Override
     public void addQuantity (double x) {
         //prompt for byWeight?
@@ -14,7 +18,7 @@ public class Produce extends Item {
     }
 
     @Override
-    public double getPrice () {
+    public int getPrice () {
         if (this.byWeight) {
             return this.price * 0; //finish here
         }

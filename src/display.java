@@ -1,6 +1,6 @@
-import POS.ListOfItems;
-import POS.ProductNotFound;
-import POS.UPC;
+import POS.CarriedItems;
+import POS.Item;
+import POS.Transaction;
 import system.ListOfUsers;
 
 import javax.swing.*;
@@ -11,11 +11,15 @@ import java.io.IOException;
 
 public class display {
     JFrame frame = new JFrame("display");
+    public CarriedItems carries = new CarriedItems();
+    public Transaction transac = new Transaction();
     private JPanel panel = new JPanel();
     private JList<String> list;
-    private String item = "test";
     private JButton button1;
     private JTextField textField1;
+    private JButton button2;
+    private JLabel totalLabel;
+    private JLabel noticeLabel;
     static DefaultListModel<String> model = new DefaultListModel<>();
 
 
@@ -23,7 +27,9 @@ public class display {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("button pressed");
+                String a = textField1.getText();
+                carries.addItem(a);
+                textField1.setText("");
             }
         });
         textField1.addActionListener(new ActionListener() {
@@ -31,15 +37,27 @@ public class display {
             public void actionPerformed(ActionEvent e) {
                 String a = textField1.getText();
                 System.out.println(a);
-                UPC b = new UPC();
+                noticeLabel.setText("");
                 try {
-                    model.addElement(b.newItem(a));
-                } catch (ProductNotFound f) {
-                    model.addElement("Product not found");
-                } finally {
+                    Item b = carries.findItem(a);
+                    model.addElement(b.getDescription());
                     list.setModel(model);
                     textField1.setText("");
+                    transac.addTotal(b.getPrice());
+                    String f = toMoney(transac.getTotal());
+                    totalLabel.setText(f);
+                    System.out.println(f);
+                } catch (NullPointerException f) {
+                    noticeLabel.setText("Product not found");
+                    System.out.println("Product not found");
                 }
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int a = Integer.parseInt(textField1.getText());
+                noticeLabel.setText("Change: " + toMoney(a - transac.getTotal()));
             }
         });
     }
@@ -66,8 +84,13 @@ public class display {
 
 
         ListOfUsers duck = new ListOfUsers();
-        duck.writeFn();
+//        duck.writeFn();
         duck.save();
+    }
+
+    public String toMoney(int a) {
+        String f = Integer.toString(a);
+        return f.substring(0, f.length() - 2) + "." + f.substring(f.length() - 2, f.length());
     }
 
 
@@ -87,18 +110,33 @@ public class display {
      */
     private void $$$setupUI$$$() {
         panel = new JPanel();
-        panel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(6, 3, new Insets(0, 0, 0, 0), -1, -1, true, true));
+        panel.setBackground(new Color(-13794952));
         final com.intellij.uiDesigner.core.Spacer spacer1 = new com.intellij.uiDesigner.core.Spacer();
-        panel.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        panel.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        button1 = new JButton();
+        button1.setText("tempAdd");
+        panel.add(button1, new com.intellij.uiDesigner.core.GridConstraints(3, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        textField1 = new JTextField();
+        panel.add(textField1, new com.intellij.uiDesigner.core.GridConstraints(2, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        button2 = new JButton();
+        button2.setText("Cash");
+        panel.add(button2, new com.intellij.uiDesigner.core.GridConstraints(4, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label1 = new JLabel();
+        label1.setText("Total:");
+        panel.add(label1, new com.intellij.uiDesigner.core.GridConstraints(5, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        totalLabel = new JLabel();
+        totalLabel.setText("0.00");
+        panel.add(totalLabel, new com.intellij.uiDesigner.core.GridConstraints(5, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        noticeLabel = new JLabel();
+        noticeLabel.setText("");
+        panel.add(noticeLabel, new com.intellij.uiDesigner.core.GridConstraints(1, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         list = new JList();
+        list.setBackground(new Color(-9716801));
+        list.setEnabled(false);
         final DefaultListModel defaultListModel1 = new DefaultListModel();
         list.setModel(defaultListModel1);
-        panel.add(list, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 2, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
-        button1 = new JButton();
-        button1.setText("Button");
-        panel.add(button1, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        textField1 = new JTextField();
-        panel.add(textField1, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        panel.add(list, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 4, 2, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 50), null, 0, false));
     }
 
     /**

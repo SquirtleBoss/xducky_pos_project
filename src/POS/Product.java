@@ -2,8 +2,8 @@ package POS;
 
 public class Product extends Item {
 
-    public void Product (String description, String code) {
-        super.Item(description, code);
+    public void Product (String code) {
+        super.Item(code);
     }
 
     public void assignSKU (int sku) {

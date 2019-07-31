@@ -6,18 +6,20 @@ public class Login {
     String ID;
     Password code;
     Groups membership;
+    Login addedBy;
 
 
     // a login account
-    public Login (String a, String b, int c)
+    public Login (String a, String b, int c, Login currentLogin)
     {
         Password x = new Password();
         Groups y = new Groups();
         x.setPass(b);
-        this.code = x;
-        this.ID = a;
+        code = x;
+        ID = a;
         y.name = c;
-        this.membership= y;
+        membership = y;
+        addedBy = currentLogin;
     }
 
     public void addToGroup(int a) {

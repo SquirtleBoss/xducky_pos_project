@@ -1,17 +1,22 @@
 package POS;
 
-abstract class Item {
+import java.util.List;
+
+public abstract class Item {
     String description;
     String ID;
     public double quantity = 0;
-    double price;
+    int price; //in cents
     int sku;
+    List<Transaction> boughtBy;
 
-    public void Item (String description2, String id) {
-        description = description2;
+    public void Item (String id) {
         ID = id;
     }
 
+    public String getDescription () {
+        return this.description;
+    }
 
     public void addQuantity (double x) {
         quantity += x;
@@ -26,7 +31,27 @@ abstract class Item {
         this.quantity = x;
     }
 
-    public double getPrice() {
+    public void setPrice (int a) {
+        this.price = a;
+    }
+
+    public int getPrice() {
         return this.price;
+    }
+
+    @Override
+
+    public boolean equals (Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Item))
+            return false;
+        return this.ID == ((Item) obj).ID;
+    }
+
+    @Override
+
+    public int hashCode () {
+        return Integer.parseInt(ID); //use last digit instead
     }
 }

@@ -8,8 +8,9 @@ import java.net.URL;
 
 public class UPC {
 
-    private String key = "ddk3elf99027jvy9j76inh945cpd1m";
+    //private String key = "ddk3elf99027jvy9j76inh945cpd1m";
 
+    //returns String, description of item
     public String newItem (String upc) throws ProductNotFound
     {
         String [] data = new String[10];
