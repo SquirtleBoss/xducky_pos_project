@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class Item {
     String description;
     String ID;
-    public double quantity = 0;
+    double quantity = 0;
     int price; //in cents
     int sku;
     List<Transaction> boughtBy;
@@ -30,6 +30,7 @@ public abstract class Item {
     public void setQuantity (int x) {
         this.quantity = x;
     }
+    public double getQuantity () {return this.quantity;}
 
     public void setPrice (int a) {
         this.price = a;

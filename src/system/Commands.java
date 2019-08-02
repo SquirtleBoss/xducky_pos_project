@@ -10,7 +10,7 @@ public class Commands {
     {
         ListOfUsers users = new ListOfUsers();
         Commands c = new Commands();
-        Login Admin1 = new Login("Admin1", "", 5, null);
+        Login Admin1 = new Login("Admin1", "", 5);
         users.logins.add(Admin1);
         c.runFn(users, Admin1);
     }
@@ -22,7 +22,7 @@ public class Commands {
 
             System.out.print (currentUser.ID + " >  ");
             Scanner in = new Scanner(System.in);
-            Login logout = new Login("logged out", "",1, currentUser);
+            Login logout = new Login("logged out", "",1);
             Commands c = new Commands();
 
             String command = in.nextLine();
@@ -39,7 +39,7 @@ public class Commands {
 
                 case "login":
                     if (fnPerms (currentUser, 100001))
-                        users.signIn(decoded[1]);
+                        users.signIn(decoded[1], ""); //changed to temp work.
                     else
                         System.out.println ("Please logout");
                     break;

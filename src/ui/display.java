@@ -1,7 +1,10 @@
+package ui;
+
 import POS.CarriedItems;
 import POS.Item;
 import POS.Transaction;
 import system.ListOfUsers;
+import system.Login;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,15 +24,22 @@ public class display {
     private JLabel totalLabel;
     private JLabel noticeLabel;
     static DefaultListModel<String> model = new DefaultListModel<>();
+    private Sys system = new Sys();
+    private static Login currentUser;
+    static ListOfUsers users;
 
 
     public display() {
+
+        //System
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String a = textField1.getText();
-                carries.addItem(a);
-                textField1.setText("");
+//                String a = textField1.getText();
+//                carries.addItem(a);
+//                textField1.setText("");
+                System.out.println(currentUser);
+                Sys.runSys(currentUser, carries, users);
             }
         });
         textField1.addActionListener(new ActionListener() {
@@ -62,18 +72,18 @@ public class display {
         });
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void runPOS(Login currentUser1, ListOfUsers users1) {
+        currentUser = currentUser1;
+        users = users1;
+        System.out.println(currentUser);
         JFrame frame = new JFrame("display");
         frame.setContentPane(new display().panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
 
 
         display test = new display();
-        String a = "hello world";
-        model.addElement(a);
-        model.addElement(a);
         System.out.println(model);
         test.list.setModel(model);
 //        test.list = new JList(model);
@@ -81,12 +91,10 @@ public class display {
         test.list.updateUI();
         test.list.setCellRenderer(new DefaultListCellRenderer());
         test.list.setVisible(true);
-
-
-        ListOfUsers duck = new ListOfUsers();
 //        duck.writeFn();
-        duck.save();
+
     }
+
 
     public String toMoney(int a) {
         String f = Integer.toString(a);
@@ -115,7 +123,7 @@ public class display {
         final com.intellij.uiDesigner.core.Spacer spacer1 = new com.intellij.uiDesigner.core.Spacer();
         panel.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
         button1 = new JButton();
-        button1.setText("tempAdd");
+        button1.setText("System");
         panel.add(button1, new com.intellij.uiDesigner.core.GridConstraints(3, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         textField1 = new JTextField();
         panel.add(textField1, new com.intellij.uiDesigner.core.GridConstraints(2, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));

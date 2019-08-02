@@ -13,4 +13,11 @@ public class Transaction {
     public void addTotal (int a) {
         this.total += a;
     }
+
+    public void finishTransaction () {
+        for (int i = 0; i < cart.size(); i++) {
+            cart.get(i).boughtBy.add(this);
+            // cart.get(i).quantity--; for after quantity gets implemented
+        }
+    }
 }

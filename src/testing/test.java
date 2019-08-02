@@ -42,7 +42,7 @@ public class test {
         boolean x = false;
         Produce one = new Produce();
         one.addQuantity(5.4);
-        assert one.quantity == 5.4;
+        assert one.getQuantity() == 5.4;
         CarriedItems z = new CarriedItems();
         try {
             z.addItem("057700013144");

@@ -1,16 +1,13 @@
 package system;
-import java.util.Scanner;
-
 public class Login {
 
     String ID;
     Password code;
     Groups membership;
-    Login addedBy;
 
 
     // a login account
-    public Login (String a, String b, int c, Login currentLogin)
+    public Login (String a, String b, int c)
     {
         Password x = new Password();
         Groups y = new Groups();
@@ -19,7 +16,6 @@ public class Login {
         ID = a;
         y.name = c;
         membership = y;
-        addedBy = currentLogin;
     }
 
     public void addToGroup(int a) {
@@ -30,12 +26,18 @@ public class Login {
     // MODIFIES: NA
     // EFFECTS: prints "Login Successful" if input matches Password associated
     //          with this Login, "Access denied" otherwise
-    public boolean attempt()
+    public boolean attempt(String password)
     {
-        System.out.println ("Enter Password: ");
-        Scanner in = new Scanner (System.in);
-        String toCheck = in.nextLine();
+        String toCheck = password;
         return this.code.passwordCheck(toCheck);
+    }
+
+    public void setCode (String toSet) {
+        this.code.setPass(toSet);
+    }
+
+    public Groups getMembership () {
+        return this.membership;
     }
 
 }

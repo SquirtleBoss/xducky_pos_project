@@ -23,5 +23,5 @@ public class Password {
         this.Pass = pass;
     }
 
-    public String getPass () {return Pass;}
+    public String getPass () {return this.Pass;}
 }
