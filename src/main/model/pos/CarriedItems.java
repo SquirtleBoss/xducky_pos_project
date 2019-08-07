@@ -1,39 +1,33 @@
-package main.model.POS;
+package main.model.pos;
 
 import java.util.HashMap;
 
 public class CarriedItems {
     public HashMap<String, Item> inventory = new HashMap<>();
+    Item toAdd;
+    String descrip;
    // private String [] keys = new String[];
 
-    public Item addItem (String code) {
+    public Item addItem(String code) {
         try {
             if (code.length() > 5) {
-                UPC upc = new UPC();
-                String descrip;
+                UPc upc = new UPc();
                 descrip = upc.newItem(code);
-                Item toAdd = new Product();
-                toAdd.description = descrip;
-                toAdd.ID = code;
-                inventory.put(toAdd.ID, toAdd);
-                return toAdd;
+                toAdd = new Product();
             } else {
-                //PLU
-                PLU plu = new PLU();
-                String descrip;
+                PLu plu = new PLu();
                 descrip = plu.newItem(code);
-                Item toAdd = new Produce();
-                toAdd.ID = code;
-                toAdd.description = descrip;
-                inventory.put(toAdd.ID, toAdd);
-                return toAdd;
+                toAdd = new Produce();
             }
+            toAdd.description = descrip;
         } catch (ProductNotFound f) {
-            Item toAdd = new Product();
-            toAdd.ID = code;
-            inventory.put(toAdd.ID, toAdd);
-            return toAdd;
+            toAdd = new Product();
+
         }
+        toAdd.id = code;
+        toAdd.description = descrip;
+        inventory.put(toAdd.id, toAdd);
+        return toAdd;
     }
 
 //    public void save ()throws IOException {
@@ -53,8 +47,8 @@ public class CarriedItems {
 
 
     //gets the Item from the CarriedItems
-    public Item findItem (String id) {
-        return inventory.get (id);
+    public Item findItem(String id) {
+        return inventory.get(id);
     }
 }
 

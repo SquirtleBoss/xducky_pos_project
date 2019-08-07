@@ -1,23 +1,23 @@
 package test.testing;
 
-import main.model.POS.*;
+import main.model.pos.*;
 import main.model.system.Password;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class test {
+public class Testing {
 
 
     @BeforeEach
     @Test
-    public void test () {
+    public void testOne() {
         Password duck = new Password();
         duck.setPass("12345");
-        System.out.println (duck.passwordCheck("12345"));
-        System.out.println (!duck.passwordCheck("54321"));
+        System.out.println(duck.passwordCheck("12345"));
+        System.out.println(!duck.passwordCheck("54321"));
         duck.setPass("54321");
-        System.out.println (!duck.passwordCheck("12345"));
-        System.out.println (duck.passwordCheck("54321"));
+        System.out.println(!duck.passwordCheck("12345"));
+        System.out.println(duck.passwordCheck("54321"));
     }
 
 //    @Test
@@ -41,7 +41,7 @@ public class test {
 
 
     @Test
-    public void testItems () {
+    public void testItems() {
         boolean x = false;
         Produce one = new Produce();
         one.addQuantity(5.4);
@@ -49,21 +49,18 @@ public class test {
         CarriedItems z = new CarriedItems();
         try {
             z.addItem("057700013144");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        UPC two = new UPC();
+        UPc two = new UPc();
         try {
             two.newItem("000000000000");
         } catch (ProductNotFound e) {
             x = true;
-            System.out.println ("error");
+            System.out.println("error");
         }
         assert !x;
-
-        PLU three = new PLU();
     }
 
 }

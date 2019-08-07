@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ListOfUsers implements writeIn, Save {
+public class ListOfUsers implements WriteIn, Save {
 
-    public List <Login> logins = new ArrayList<>();
+    public List<Login> logins = new ArrayList<>();
 
 //    public ListOfUsers ()
 //    {
@@ -24,10 +24,10 @@ public class ListOfUsers implements writeIn, Save {
             Login a = new Login(info[0], info[1], Integer.parseInt(info[2]));
             this.logins.add(a);
         }
-        System.out.println (logins);
+        System.out.println(logins);
     }
 
-    public void save ()throws IOException {
+    public void save() throws IOException {
 //        Login x = new Login("Bob", "123", 2);
 //        logins.add(x);
 //        System.out.println ("000" + logins);
@@ -35,9 +35,9 @@ public class ListOfUsers implements writeIn, Save {
         writer.flush();
         for (int i = 0; i < logins.size(); i++) {
             Login a = logins.get(i);
-            String toSave = a.ID + " " + a.code.getPass() + " " + a.membership.name;
+            String toSave = a.id + " " + a.code.getPass() + " " + a.membership.name;
             writer.println(toSave);
-            System.out.println (a.code.getPass());
+            System.out.println(a.code.getPass());
         }
         writer.close();
     }
@@ -49,51 +49,40 @@ public class ListOfUsers implements writeIn, Save {
 //    }
 
     // addUser() adds a new user to list of users
-    public void addUser (String id, Login currentUser)
-    {
-        System.out.println ("Enter Password: ");
+    public void addUser(String id, Login currentUser) {
+        System.out.println("Enter Password: ");
         Scanner in = new Scanner(System.in);
         String pass = in.nextLine();
         Login x = new Login(id, pass,2);
         logins.add(x);
-        System.out.println (id + " successfully added");
-        System.out.println (logins);
-        Commands c = new Commands();
-        Login logout = new Login("logout", "", 0); // Change user here
-        c.runFn(this, currentUser);
+        System.out.println(id + " successfully added");
+        System.out.println(logins);
     }
 
     //signIn() finds the account user wishes to sign into
-    public Login signIn (String account, String password)
-    {
+    public Login signIn(String account, String password) {
         boolean signedIn = false;
-        for (int i = 0; i < logins.size(); i++)
-        {
-            if (account.equals(logins.get(i).ID))
-            if (logins.get(i).attempt(password))
-            {
-                System.out.println ("Login Successful");
-                signedIn = true;
-                return logins.get(i);
-
-            }
-            else
+        for (int i = 0; i < logins.size(); i++) {
+            if (account.equals(logins.get(i).id)) {
+                if (logins.get(i).attempt(password)) {
+                    System.out.println("Login Successful");
+                    signedIn = true;
+                    return logins.get(i);
+                }
+            } else {
                 System.out.println("failed");
+            }
         }
-        if (!signedIn)
+        if (!signedIn) {
             System.out.print("User not found");
+        }
         return null;
     }
 
-    public void allUsers ()
-    {
-        for (int i = 0; i < logins.size(); i++)
-        {
-            System.out.println (logins.get(i).ID);
+    public void allUsers() {
+        for (int i = 0; i < logins.size(); i++) {
+            System.out.println(logins.get(i).id);
         }
-        Commands c = new Commands();
-        Login logout = new Login("logout", "", 0); //Change user here
-        c.runFn (this, logout);
     }
 
 }

@@ -2,6 +2,6 @@ package main.model.system;
 
 import java.io.IOException;
 
-public interface writeIn {
+public interface WriteIn {
     void writeFn() throws IOException;
 }

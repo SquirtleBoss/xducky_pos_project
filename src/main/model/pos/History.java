@@ -1,4 +1,4 @@
-package main.model.POS;
+package main.model.pos;
 
 import java.util.List;
 

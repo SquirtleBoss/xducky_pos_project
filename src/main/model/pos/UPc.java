@@ -1,18 +1,15 @@
-package main.model.POS;
+package main.model.pos;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-public class UPC {
+public class UPc {
 
     //private String key = "ddk3elf99027jvy9j76inh945cpd1m";
 
     //returns String, description of item
-    public String newItem (String upc) throws ProductNotFound
-    {
+    public String newItem(String upc) throws ProductNotFound {
         String [] data = new String[10];
         //String [] nameData = new String[5];
 //        try {
@@ -37,19 +34,16 @@ public class UPC {
             for (int i = 0; i < 10; i++) {
                 data[i] = br.readLine();
             }
-            String nameData [] = data[0].split(":");
-            String moreProcess [] = nameData [6].split(",");
+            String [] nameData = data[0].split(":");
+            String [] moreProcess = nameData [6].split(",");
             String string = moreProcess[0].replaceAll("^\"|\"$", "");
             System.out.println(string);
             return string;
 
-        } catch (MalformedURLException e) {
-        } catch (IOException e) {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new ProductNotFound();
+        } catch (Exception f) {
+            return "Product Not Found";
         }
-        return "Product Not Found";
-
-
     }
 }

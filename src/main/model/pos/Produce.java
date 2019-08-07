@@ -1,15 +1,15 @@
-package main.model.POS;
+package main.model.pos;
 
 public class Produce extends Item {
 
     private boolean byWeight = false;
 
-    public void Produce (String code) {
-        super.Item(code);
+    public void produce(String code) {
+        super.item(code);
     }
 
     @Override
-    public void addQuantity (double x) {
+    public void addQuantity(double x) {
         //prompt for byWeight?
         if (byWeight) { //change to prompt result
             byWeight = true;
@@ -18,16 +18,15 @@ public class Produce extends Item {
     }
 
     @Override
-    public int getPrice () {
+    public int getPrice() {
         if (this.byWeight) {
             return this.price * 0; //finish here
-        }
-        else {
+        } else {
             return this.price;
         }
     }
 
-    public void sellByWeight () {
+    public void sellByWeight() {
         byWeight = true;
     }
 
