@@ -1,11 +1,14 @@
 package testing;
 
 import POS.*;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import system.Password;
 
 public class test {
 
+
+    @BeforeEach
     @Test
     public void test () {
         Password duck = new Password();
