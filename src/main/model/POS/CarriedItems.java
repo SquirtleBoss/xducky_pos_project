@@ -1,12 +1,10 @@
 package main.model.POS;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 
 public class CarriedItems {
     public HashMap<String, Item> inventory = new HashMap<>();
-    private String [] keys = new String[];
+   // private String [] keys = new String[];
 
     public Item addItem (String code) {
         try {
