@@ -26,19 +26,25 @@ public class setPQ {
                     } catch (Exception f) {
                         label.setText("Please enter a number");
                     }
+                System.out.println(item.getQuantity());
 
             }
         });
     }
 
-    public static void setpq(Item a) {
+    public void setpq(Item a) {
         item = a;
-        //label.setText("Current quantity: " + a.getQuantity());
+        setLabel("hello world");
         JFrame frame = new JFrame("ChangePQ");
         frame.setContentPane(new setPQ().panel1);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        label.setText("Current quantity: " + a.getQuantity());
+    }
+
+    public void setLabel(String a) {
+        label.setText(a);
     }
 
     {

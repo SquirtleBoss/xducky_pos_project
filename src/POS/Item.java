@@ -7,6 +7,7 @@ public abstract class Item {
     String ID;
     double quantity = 0;
     int price; //in cents
+    public boolean sellByWeight = false;
     int sku;
     List<Transaction> boughtBy;
 
@@ -18,6 +19,8 @@ public abstract class Item {
         return this.description;
     }
 
+    public void setDescription (String a) {this.description = a;}
+
     public void addQuantity (double x) {
         quantity += x;
     }
@@ -27,7 +30,11 @@ public abstract class Item {
 
     }
 
-    public void setQuantity (int x) {
+    public String getID () {
+        return this.ID;
+    }
+
+    public void setQuantity (double x) {
         this.quantity = x;
     }
     public double getQuantity () {return this.quantity;}

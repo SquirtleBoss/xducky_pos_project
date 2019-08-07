@@ -15,14 +15,6 @@
           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <component id="63844" class="javax.swing.JButton" binding="button1" default-binding="true">
-        <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="System"/>
-        </properties>
-      </component>
       <component id="2b58d" class="javax.swing.JTextField" binding="textField1" default-binding="true">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -30,14 +22,6 @@
           </grid>
         </constraints>
         <properties/>
-      </component>
-      <component id="f8935" class="javax.swing.JButton" binding="button2" default-binding="true">
-        <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Cash"/>
-        </properties>
       </component>
       <component id="cc32d" class="javax.swing.JLabel">
         <constraints>
@@ -70,9 +54,35 @@
           </grid>
         </constraints>
         <properties>
-          <background color="-9716801"/>
+          <background color="-1444612"/>
           <enabled value="false"/>
+          <focusable value="false"/>
+          <foreground color="-5889740"/>
           <model/>
+        </properties>
+      </component>
+      <component id="f8935" class="javax.swing.JButton" binding="button2" default-binding="true">
+        <constraints>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Total"/>
+        </properties>
+      </component>
+      <component id="9782f" class="javax.swing.JButton" binding="cancelOrderButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Cancel Order"/>
+        </properties>
+      </component>
+      <component id="63844" class="javax.swing.JButton" binding="button1" default-binding="true">
+        <constraints>
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="System"/>
         </properties>
       </component>
     </children>

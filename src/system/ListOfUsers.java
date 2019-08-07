@@ -32,6 +32,7 @@ public class ListOfUsers implements writeIn, Save{
 //        logins.add(x);
 //        System.out.println ("000" + logins);
         PrintWriter writer = new PrintWriter("inputfile.txt","UTF-8");
+        writer.flush();
         for (int i = 0; i < logins.size(); i++) {
             Login a = logins.get(i);
             String toSave = a.ID + " " + a.code.getPass() + " " + a.membership.name;

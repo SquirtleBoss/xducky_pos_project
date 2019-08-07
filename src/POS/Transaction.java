@@ -1,9 +1,11 @@
 package POS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Transaction {
-    List<Item> cart;
+    public List<Item> cart = new ArrayList<>();
+    public List<Double> amount = new ArrayList<>();
     int total = 0; //in cents
 
     public int getTotal () {
@@ -16,8 +18,7 @@ public class Transaction {
 
     public void finishTransaction () {
         for (int i = 0; i < cart.size(); i++) {
-            cart.get(i).boughtBy.add(this);
-            // cart.get(i).quantity--; for after quantity gets implemented
+            cart.get(i).quantity -= amount.get(i);
         }
     }
 }

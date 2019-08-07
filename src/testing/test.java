@@ -61,8 +61,6 @@ public class test {
         assert !x;
 
         PLU three = new PLU();
-        three.newItem("4011");
-
     }
 
 }

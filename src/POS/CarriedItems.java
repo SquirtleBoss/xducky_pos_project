@@ -5,39 +5,34 @@ import java.util.HashMap;
 public class CarriedItems {
     public HashMap<String, Item> inventory = new HashMap<>();
 
-    public void addItem (String code) {
-        if (code.length() > 5) {
-            UPC upc = new UPC();
-            String descrip;
-            try {
+    public Item addItem (String code) {
+        try {
+            if (code.length() > 5) {
+                UPC upc = new UPC();
+                String descrip;
                 descrip = upc.newItem(code);
-                //confirm product with user
                 Item toAdd = new Product();
                 toAdd.description = descrip;
                 toAdd.ID = code;
-                toAdd.setPrice(1200); //price set here
                 inventory.put(toAdd.ID, toAdd);
-            } catch (ProductNotFound e) {
-                System.out.println ("Product not found");
+                return toAdd;
+            } else {
+                //PLU
+                PLU plu = new PLU();
+                String descrip;
+                descrip = plu.newItem(code);
+                Item toAdd = new Produce();
+                toAdd.ID = code;
+                toAdd.description = descrip;
+                inventory.put(toAdd.ID, toAdd);
+                return toAdd;
             }
-            finally {
-                //return to checkout screen;
-            }
-        } else {
-            //PLU
-            PLU plu = new PLU();
-            String descrip;
-            descrip = plu.newItem(code);
-            //confirm product with user
-            Item toAdd = new Produce();
+        } catch (ProductNotFound f) {
+            Item toAdd = new Product();
             toAdd.ID = code;
-            toAdd.description = descrip;
-            toAdd.setPrice(300); //price set here
             inventory.put(toAdd.ID, toAdd);
+            return toAdd;
         }
-
-        //prompt for price and quantity
-        //set price and quantity
     }
 
 

@@ -18,6 +18,7 @@ public class Sys {
     private static Login currentUser = new Login("duck", "", 5);
     private static CarriedItems carries;
     private static ListOfUsers users;
+    static Notice notice = new Notice();
 
 
     public Sys() {
@@ -29,7 +30,7 @@ public class Sys {
                 if (currentUser.getMembership().hasPermission(111100))
                     ChangePQ.changeProductQuantity(carries);
                 else
-                    AccessDenied.accessDenied();
+                    notice.notice("Access Denied");
             }
         });
         addNewItemButton.addActionListener(new ActionListener() {
@@ -39,13 +40,19 @@ public class Sys {
                 if (currentUser.getMembership().hasPermission(111000))
                     addItem.addStuff(carries);
                 else
-                    AccessDenied.accessDenied();
+                    notice.notice("Access Denied");
             }
         });
         changePasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ChangePassword.changePassword(currentUser, users);
+            }
+        });
+        userManagementButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LaunchUM.launchUM(currentUser, users);
             }
         });
     }
@@ -80,7 +87,7 @@ public class Sys {
         pane = new JPanel();
         pane.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         changeItemQuantityButton = new JButton();
-        changeItemQuantityButton.setText("Change Item Quantity");
+        changeItemQuantityButton.setText("Change Item Information");
         pane.add(changeItemQuantityButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         userManagementButton = new JButton();
         userManagementButton.setText("User Management");
