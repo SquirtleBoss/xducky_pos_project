@@ -17,10 +17,15 @@ public class PLu {
             String [] nameData = data[6].split("-");
             String [] moreProcess = nameData [1].split("<");
             String string = moreProcess[0].replaceAll("^\"|\"$", "");
-            if (string.equals(" PLU Code not found")) { //guess here, check what api returns
+            if (string.equals(" PLU Code not found")) {
                 throw new ProductNotFound();
             }
-            return string;
+            String [] p4 = string.split(" ");
+            String x = "";
+            for (int i = 2; i < p4.length - 1; i++) {
+                x += (p4[i] + " ");
+            }
+            return x;
         } catch (Exception e) {
             throw new ProductNotFound();
         }

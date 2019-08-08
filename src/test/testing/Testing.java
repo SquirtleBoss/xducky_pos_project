@@ -1,15 +1,27 @@
 package test.testing;
 
 import main.model.pos.*;
+import main.model.system.Login;
 import main.model.system.Password;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class Testing {
 
+    CarriedItems items;
+    Transaction transaction;
+    Login user;
+
 
     @BeforeEach
+
+    public void before() {
+        items = new CarriedItems();
+        transaction = new Transaction();
+        user = new Login("Bob", "ducks", 2);
+    }
     @Test
+
     public void testOne() {
         Password duck = new Password();
         duck.setPass("12345");
@@ -62,5 +74,41 @@ public class Testing {
         }
         assert !x;
     }
+
+
+
+    @Test
+
+    public void testAddFindItem() {
+        Item a = items.addItem("4011");
+        assert a.getDescription().equals("Bananas Yellow ");
+        assert items.findItem("4011").equals(a);
+    }
+
+    @Test
+
+    public void testAddGetKey () {
+        items.addKey("DucksAreCool");
+        items.addKey("Quack");
+        assert items.getKeys().get(0).equals("DucksAreCool");
+        assert items.getKeys().get(1).equals("Quack");
+    }
+
+    @Test
+
+    public void testAddGetTotal() {
+        transaction.addTotal(20);
+        transaction.addTotal(1500);
+        transaction.addTotal(80);
+        assert transaction.getTotal() == 1600;
+    }
+
+    @Test
+
+    public void testAttempt() {
+        assert !user.attempt("cows");
+        assert user.attempt("ducks");
+    }
+
 
 }

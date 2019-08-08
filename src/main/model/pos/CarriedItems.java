@@ -1,12 +1,20 @@
 package main.model.pos;
 
+import main.model.system.Login;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CarriedItems {
     public HashMap<String, Item> inventory = new HashMap<>();
     Item toAdd;
     String descrip;
-   // private String [] keys = new String[];
+    List<String> keys = new ArrayList<>();
 
     public Item addItem(String code) {
         try {
@@ -30,21 +38,56 @@ public class CarriedItems {
         return toAdd;
     }
 
-//    public void save ()throws IOException {
-////        Login x = new Login("Bob", "123", 2);
-////        logins.add(x);
-////        System.out.println ("000" + logins);
-//        PrintWriter writer = new PrintWriter("inputfile.txt","UTF-8");
-//        writer.flush();
-//        for (int i = 0; i < keys.length; i++) {
-//            Item a = inventory.get(keys[i]);
-//            String toSave = a.ID + " " + a.code.getPass() + " " + a.membership.name;
-//            writer.println(toSave);
-//            System.out.println (a.code.getPass());
-//        }
-//        writer.close();
-//    }
+    public void saveItems() {
+//        Login x = new Login("Bob", "123", 2);
+//        logins.add(x);
+//        System.out.println ("000" + logins);
+        try {
+            PrintWriter writer = new PrintWriter("CarriedItems.txt", "UTF-8");
+            writer.flush();
+            for (int i = 0; i < keys.size(); i++) {
+                Item a = inventory.get(keys.get(i));
+                int w;
+                if (a.sellByWeight) {
+                    w = 1;
+                } else {
+                    w = 0;
+                }
+                String toSave = a.getID() + ":" + a.getDescription() + ":" + a.getPrice() + ":" + a.getQuantity() + ":" + w;
+                writer.println(toSave);
+            }
+            writer.close();
+        } catch (IOException f) {
+            System.out.println("exception");
+        }
+    }
 
+    public void loadItems() {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get("CarriedItems.txt"));
+            for (int i = 0; i < lines.size(); i++) {
+                String[] info = lines.get(i).split(":");
+                Item a = new Product();
+                a.setID(info[0]);
+                a.setDescription(info[1]);
+                a.setPrice(Integer.parseInt(info[2]));
+                a.setQuantity(Double.parseDouble(info[3]));
+                a.sellByWeight = info[4].equals("1");
+                this.inventory.put(info[0], a);
+                keys.add(info[0]);
+            }
+        } catch (Exception f) {
+            System.out.println("Sync Error");
+        }
+    }
+
+    public void addKey(String a) {
+        keys.add(a);
+    }
+
+    public List<String> getKeys() {
+        return keys;
+    }
 
     //gets the Item from the CarriedItems
     public Item findItem(String id) {
