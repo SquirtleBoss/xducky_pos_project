@@ -20,6 +20,7 @@ public class Testing {
         transaction = new Transaction();
         user = new Login("Bob", "ducks", 2);
     }
+
     @Test
 
     public void testOne() {
@@ -87,7 +88,7 @@ public class Testing {
 
     @Test
 
-    public void testAddGetKey () {
+    public void testAddGetKey() {
         items.addKey("DucksAreCool");
         items.addKey("Quack");
         assert items.getKeys().get(0).equals("DucksAreCool");
