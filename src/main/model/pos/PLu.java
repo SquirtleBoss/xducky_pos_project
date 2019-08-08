@@ -20,14 +20,18 @@ public class PLu {
             if (string.equals(" PLU Code not found")) {
                 throw new ProductNotFound();
             }
-            String [] p4 = string.split(" ");
-            String x = "";
-            for (int i = 2; i < p4.length - 1; i++) {
-                x += (p4[i] + " ");
-            }
-            return x;
+            return parseString(string);
         } catch (Exception e) {
             throw new ProductNotFound();
         }
+    }
+
+    public String parseString(String string) {
+        String [] p4 = string.split(" ");
+        String x = "";
+        for (int i = 2; i < p4.length - 1; i++) {
+            x += (p4[i] + " ");
+        }
+        return x;
     }
 }
