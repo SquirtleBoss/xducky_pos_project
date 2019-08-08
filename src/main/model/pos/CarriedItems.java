@@ -1,7 +1,5 @@
 package main.model.pos;
 
-import main.model.system.Login;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -15,6 +13,7 @@ public class CarriedItems {
     Item toAdd;
     String descrip;
     List<String> keys = new ArrayList<>();
+    int number;
 
     public Item addItem(String code) {
         try {
@@ -47,13 +46,13 @@ public class CarriedItems {
             writer.flush();
             for (int i = 0; i < keys.size(); i++) {
                 Item a = inventory.get(keys.get(i));
-                int w;
                 if (a.sellByWeight) {
-                    w = 1;
+                    number = 1;
                 } else {
-                    w = 0;
+                    number = 0;
                 }
-                String toSave = a.getID() + ":" + a.getDescription() + ":" + a.getPrice() + ":" + a.getQuantity() + ":" + w;
+                String toSave = a.getID() + ":" + a.getDescription() + ":" + a.getPrice() + ":" + a.getQuantity()
+                        + ":" + number;
                 writer.println(toSave);
             }
             writer.close();
