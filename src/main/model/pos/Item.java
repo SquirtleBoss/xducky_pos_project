@@ -1,15 +1,11 @@
 package main.model.pos;
 
-import java.util.List;
-
 public abstract class Item {
     String description;
     String id;
     double quantity = 0;
     int price; //in cents
     public boolean sellByWeight = false;
-    int sku;
-    List<Transaction> boughtBy;
 
     public void item(String id1) {
         id = id1;

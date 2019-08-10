@@ -111,5 +111,31 @@ public class Testing {
         assert user.attempt("ducks");
     }
 
+    @Test
+
+    public void testForItem() {
+        Item a = new Product();
+        a.setDescription("Rubber Ducks");
+        assert a.getDescription().equals("RubberDucks");
+        a.setID("010101");
+        assert a.getID().equals("010101");
+        a.setQuantity(5.0);
+        a.addQuantity(5.0);
+        assert a.getQuantity() == 10.0;
+    }
+
+    @Test
+
+    public void testPLu() {
+        String a;
+        PLu plu = new PLu();
+        try {
+            a = plu.newItem("4011");
+        } catch (ProductNotFound e) {
+            a = "Product Not Found";
+        }
+        assert a.equals("Bananas Yellow") || a.equals("Product Not Found");
+
+    }
 
 }

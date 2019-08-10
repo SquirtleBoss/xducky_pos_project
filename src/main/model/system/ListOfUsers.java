@@ -79,6 +79,19 @@ public class ListOfUsers implements WriteIn, Save {
         return null;
     }
 
+    public Login findUser(String account) {
+        for (int i = 0; i < logins.size(); i++) {
+            if (account.equals(logins.get(i).id)) {
+                return logins.get(i);
+            }
+        }
+        return null;
+    }
+
+    public void removeUser(Login a) {
+        logins.remove(a);
+    }
+
     public void allUsers() {
         for (int i = 0; i < logins.size(); i++) {
             System.out.println(logins.get(i).id);
