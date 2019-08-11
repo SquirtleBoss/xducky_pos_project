@@ -23,11 +23,6 @@ public abstract class Item {
         quantity += x;
     }
 
-    public void minusQuantity(int x) {
-        quantity -= x;
-
-    }
-
     public String getID() {
         return this.id;
     }

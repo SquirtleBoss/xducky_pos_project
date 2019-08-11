@@ -116,26 +116,67 @@ public class Testing {
     public void testForItem() {
         Item a = new Product();
         a.setDescription("Rubber Ducks");
-        assert a.getDescription().equals("RubberDucks");
+        assert a.getDescription().equals("Rubber Ducks");
         a.setID("010101");
         assert a.getID().equals("010101");
         a.setQuantity(5.0);
         a.addQuantity(5.0);
         assert a.getQuantity() == 10.0;
+        a.setPrice(300);
+        assert a.getPrice() == 300;
     }
 
     @Test
 
     public void testPLu() {
         String a;
+        String b = "";
         PLu plu = new PLu();
         try {
             a = plu.newItem("4011");
+            b = plu.newItem("0000");
         } catch (ProductNotFound e) {
             a = "Product Not Found";
         }
         assert a.equals("Bananas Yellow") || a.equals("Product Not Found");
+        assert b.equals("Product Not Found") || b.equals("");
+    }
 
+    @Test
+
+    public void testSaveLoadItems() {
+        items.loadItems();
+        items.addItem("4060");
+        items.addItem("071514004266");
+        items.findItem("4060");
+        items.findItem("071514004266");
+        items.saveItems();
+        items.loadItems();
+        assert items.findItem("4060") != null;
+        assert items.findItem("071514004266") != null;
+        items.inventory.remove("4060");
+        items.inventory.remove("071514004266");
+        items.saveItems();
+    }
+
+    @Test
+
+    public void testParseString() {
+        String a = PLu.parseString(" 4011 Banana Yellow code");
+        assert a.equals("Banana Yellow ");
+    }
+
+    @Test
+
+    public void testEquals() {
+        Item a = new Product();
+        Item b = null;
+        assert !a.equals(b);
+        assert !a.equals(transaction);
+        b = new Produce();
+        a.setDescription("asdf");
+        b.setDescription("asdf");
+        assert a.equals(b);
     }
 
 }

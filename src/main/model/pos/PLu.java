@@ -26,7 +26,7 @@ public class PLu {
         }
     }
 
-    public String parseString(String string) {
+    public static String parseString(String string) {
         String [] p4 = string.split(" ");
         String x = "";
         for (int i = 2; i < p4.length - 1; i++) {
