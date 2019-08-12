@@ -15,6 +15,7 @@ public class Testing {
     Transaction transaction;
     Login user;
     ListOfUsers users;
+    Item item;
 
 
     @BeforeEach
@@ -24,6 +25,7 @@ public class Testing {
         transaction = new Transaction();
         user = new Login("Bob", "ducks", 2);
         users = new ListOfUsers();
+        item = new Product();
     }
 
     @Test
@@ -147,22 +149,6 @@ public class Testing {
         assert b.equals("Product Not Found") || b.equals("");
     }
 
-    @Test
-
-    public void testSaveLoadItems() {
-        items.loadItems();
-        items.addItem("4060");
-        items.addItem("071514004266");
-        items.findItem("4060");
-        items.findItem("071514004266");
-        items.saveItems();
-        items.loadItems();
-        assert items.findItem("4060") != null;
-        assert items.findItem("071514004266") != null;
-        items.inventory.remove("4060");
-        items.inventory.remove("071514004266");
-        items.saveItems();
-    }
 
     @Test
 
@@ -182,6 +168,54 @@ public class Testing {
         a.setID("0000");
         b.setID("0000");
         assert a.equals(b);
+    }
+
+    @Test
+
+    public void testGroups() {
+        assert user.getMembership().hasPermission(111110);
+        assert !user.getMembership().hasPermission(111100);
+    }
+
+    @Test
+
+    public void testExtendCarriedItems() {
+        Item a = new Produce();
+        a.setID("0001");
+        a.setDescription("Rubba Ducks");
+        a.sellByWeight = true;
+        a.setPrice(300);
+        items.inventory.put("0001", a);
+        items.addKey("0001");
+        items.saveItems();
+        items = new CarriedItems();
+        items.loadItems();
+        Item b = items.findItem("0001");
+        assert b.equals(a);
+        items.inventory.remove("0001");
+        items.getKeys().remove("0001");
+        items.saveItems();
+    }
+
+    @Test
+
+    public void testFinTrans() {
+        item.setQuantity(5.0);
+        transaction.cart.add(item);
+        transaction.amount.add(1.0);
+        transaction.finishTransaction();
+        assert item.getQuantity() == 4.0;
+    }
+
+    @Test
+
+    public void testLOs() {
+        try {
+            users.writeFn();
+            users.findUser("blahblah");
+        } catch (IOException f) {
+            System.out.println("User not found");
+        }
     }
 
     @Test
@@ -209,28 +243,18 @@ public class Testing {
 
     @Test
 
-    public void testGroups() {
-        assert user.getMembership().hasPermission(111110);
-        assert !user.getMembership().hasPermission(111100);
-    }
-
-    @Test
-
-    public void testExtendCarriedItems() {
-        Item a = new Produce();
-        a.setID("0001");
-        a.setDescription("Rubba Ducks");
-        a.sellByWeight = true;
-        a.setPrice(300);
-        items.inventory.put("0001", a);
-        items.addKey("0001");
-        items.saveItems();
-        items = new CarriedItems();
+    public void testSaveLoadItems() {
         items.loadItems();
-        Item b = items.findItem("0001");
-        assert b.equals(a);
-        items.inventory.remove("0001");
-        items.getKeys().remove("0001");
+        items.addItem("4060");
+        items.addItem("071514004266");
+        items.findItem("4060");
+        items.findItem("071514004266");
+        items.saveItems();
+        items.loadItems();
+        assert items.findItem("4060") != null;
+        assert items.findItem("071514004266") != null;
+        items.inventory.remove("4060");
+        items.inventory.remove("071514004266");
         items.saveItems();
     }
 }
