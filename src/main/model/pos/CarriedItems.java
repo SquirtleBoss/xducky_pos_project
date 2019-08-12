@@ -38,11 +38,8 @@ public class CarriedItems {
     }
 
     public void saveItems() {
-//        Login x = new Login("Bob", "123", 2);
-//        logins.add(x);
-//        System.out.println ("000" + logins);
         try {
-            PrintWriter writer = new PrintWriter("CarriedItems.txt", "UTF-8");
+            PrintWriter writer = new PrintWriter(".idea/CarriedItems.txt", "UTF-8");
             writer.flush();
             for (int i = 0; i < keys.size(); i++) {
                 Item a = inventory.get(keys.get(i));
@@ -63,7 +60,7 @@ public class CarriedItems {
 
     public void loadItems() {
         try {
-            List<String> lines = Files.readAllLines(Paths.get("CarriedItems.txt"));
+            List<String> lines = Files.readAllLines(Paths.get(".idea/CarriedItems.txt"));
             for (int i = 0; i < lines.size(); i++) {
                 String[] info = lines.get(i).split(":");
                 Item a = new Product();

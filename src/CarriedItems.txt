@@ -1,0 +1,5 @@
+4012:Oranges Navel :500:4.0:0
+4011:Bananas Yellow :599:9.0:0
+3108:Oranges Valencia :2000:2.109999999999999:1
+035000764522:Colgate MaxFresh Cool Mint Toothpaste with Mini Breath Strips:300:3.0:0
+035000263476:Irish Spring Gear Body Wash 3 In 1:500:-6.0:0

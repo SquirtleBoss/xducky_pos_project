@@ -1,16 +1,20 @@
 package test.testing;
 
 import main.model.pos.*;
+import main.model.system.ListOfUsers;
 import main.model.system.Login;
 import main.model.system.Password;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 public class Testing {
 
     CarriedItems items;
     Transaction transaction;
     Login user;
+    ListOfUsers users;
 
 
     @BeforeEach
@@ -19,6 +23,7 @@ public class Testing {
         items = new CarriedItems();
         transaction = new Transaction();
         user = new Login("Bob", "ducks", 2);
+        users = new ListOfUsers();
     }
 
     @Test
@@ -174,9 +179,58 @@ public class Testing {
         assert !a.equals(b);
         assert !a.equals(transaction);
         b = new Produce();
-        a.setDescription("asdf");
-        b.setDescription("asdf");
+        a.setID("0000");
+        b.setID("0000");
         assert a.equals(b);
     }
 
+    @Test
+
+    public void testSaveWriteFN() {
+        try {
+            users.writeFn();
+            users.logins.add(user);
+            Login a = users.findUser("Bob");
+            assert a.membership.name == 2;
+            a.setCode("123");
+            Login b = users.signIn("Bob", "123");
+            assert b.getMembership() == a.getMembership();
+            Login c = users.signIn("blahblah", "");
+            assert c == null;
+            users.save();
+            users.writeFn();
+            assert a.membership.name == 2;
+            users.removeUser(a);
+            users.save();
+        } catch (IOException f) {
+            System.out.println("User not found");
+        }
+    }
+
+    @Test
+
+    public void testGroups() {
+        assert user.getMembership().hasPermission(111110);
+        assert !user.getMembership().hasPermission(111100);
+    }
+
+    @Test
+
+    public void testExtendCarriedItems() {
+        Item a = new Produce();
+        a.setID("0001");
+        a.setDescription("Rubba Ducks");
+        a.sellByWeight = true;
+        a.setPrice(300);
+        items.inventory.put("0001", a);
+        items.addKey("0001");
+        items.saveItems();
+        items = new CarriedItems();
+        items.loadItems();
+        Item b = items.findItem("0001");
+        assert b.equals(a);
+        items.inventory.remove("0001");
+        items.getKeys().remove("0001");
+        items.saveItems();
+    }
 }

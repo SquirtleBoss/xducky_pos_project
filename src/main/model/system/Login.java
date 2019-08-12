@@ -18,10 +18,6 @@ public class Login {
         membership = y;
     }
 
-    public void addToGroup(int a) {
-        this.membership.name = a;
-    }
-
     // REQUIRES: to be called on a Login, user to input String
     // MODIFIES: NA
     // EFFECTS: prints "Login Successful" if input matches Password associated

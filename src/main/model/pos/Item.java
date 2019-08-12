@@ -56,12 +56,12 @@ public abstract class Item {
         if (!(obj instanceof Item)) {
             return false;
         }
-        return this.id == ((Item) obj).id;
+        return this.id.equals(((Item) obj).id);
     }
 
     @Override
 
     public int hashCode() {
-        return Integer.parseInt(id); //use last digit instead
+        return Integer.parseInt(id);
     }
 }

@@ -6,16 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ListOfUsers implements WriteIn, Save {
 
     public List<Login> logins = new ArrayList<>();
-
-//    public ListOfUsers ()
-//    {
-//        logins = new ArrayList<>();
-//    }
 
     public void writeFn() throws IOException {
         List<String> lines = Files.readAllLines(Paths.get("inputfile.txt"));
@@ -28,9 +22,6 @@ public class ListOfUsers implements WriteIn, Save {
     }
 
     public void save() throws IOException {
-//        Login x = new Login("Bob", "123", 2);
-//        logins.add(x);
-//        System.out.println ("000" + logins);
         PrintWriter writer = new PrintWriter("inputfile.txt","UTF-8");
         writer.flush();
         for (int i = 0; i < logins.size(); i++) {
@@ -40,23 +31,6 @@ public class ListOfUsers implements WriteIn, Save {
             System.out.println(a.code.getPass());
         }
         writer.close();
-    }
-
-//    public void addUserDef (String id, String pass)
-//    {
-//        Login x = new Login (id, pass,2);
-//        logins.add(x);
-//    }
-
-    // addUser() adds a new user to list of users
-    public void addUser(String id, Login currentUser) {
-        System.out.println("Enter Password: ");
-        Scanner in = new Scanner(System.in);
-        String pass = in.nextLine();
-        Login x = new Login(id, pass,2);
-        logins.add(x);
-        System.out.println(id + " successfully added");
-        System.out.println(logins);
     }
 
     //signIn() finds the account user wishes to sign into
@@ -90,12 +64,6 @@ public class ListOfUsers implements WriteIn, Save {
 
     public void removeUser(Login a) {
         logins.remove(a);
-    }
-
-    public void allUsers() {
-        for (int i = 0; i < logins.size(); i++) {
-            System.out.println(logins.get(i).id);
-        }
     }
 
 }
