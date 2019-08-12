@@ -4,10 +4,6 @@ public class Produce extends Item {
 
     private boolean byWeight = false;
 
-    public void produce(String code) {
-        super.item(code);
-    }
-
     @Override
     public void addQuantity(double x) {
         //prompt for byWeight?
